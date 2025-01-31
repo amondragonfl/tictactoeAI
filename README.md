@@ -1,2 +1,2 @@
 # xoengine
-Strong tic tac toe engine 
+Unbeatable tic tac toe 
