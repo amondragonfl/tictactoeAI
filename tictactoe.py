@@ -6,7 +6,24 @@ class Board:
         self.player_symbols = ["x", "o"]
 
     def __str__(self):
-        rows = [f"{' | '.join(self.board[i:i+3])}" for i in range(0, 9, 3)]
+        # ANSI escape codes for red and green
+        red = "\033[91m"
+        green = "\033[92m"
+        reset = "\033[0m"  # Reset color
+
+        rows = []
+        for i in range(0, 9, 3):
+            row = []
+            for j in range(3):
+                cell = self.board[i + j]
+                if cell == self.player_symbols[0]:
+                    row.append(f"{red}{cell}{reset}")
+                elif cell == self.player_symbols[1]:
+                    row.append(f"{green}{cell}{reset}")
+                else:
+                    row.append(cell)
+            rows.append(" | ".join(row))
+        
         return "\n----------\n".join(rows)
 
     def is_valid_move(self, board_index):
@@ -43,6 +60,9 @@ class Board:
     
     def _is_board_full(self, board):
         return all(cell in self.player_symbols for cell in board)
+    
+    def is_game_over(self):
+        return self._is_board_full(self.board) or self.get_winner() in self.player_symbols
     
     def _evaluate_ending_position(self, board): 
         player_symbol = "x"

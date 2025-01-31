@@ -15,6 +15,7 @@ def play_game(computer_first):
                 player_move = input("Enter a valid number from 1-9: ")
             board.make_move("x", int(player_move)-1)
         else:
+            print("Computer is thinking...")
             board.make_move("o", board.compute_best_move())
         player_turn = not player_turn
     
